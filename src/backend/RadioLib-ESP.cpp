@@ -4,8 +4,8 @@
 
 #include "RadioLib-ESP.h"
 
-// ======================= INTO GLOBAL
 
+// ======================= INTO GLOBAL
 bool newline = true; // debug
 uint8_t b;           // debug
 int count = 0;       // debug too
@@ -28,7 +28,6 @@ SX1276 radio = new Module(CS, PINT, RESET, CLK);
 
 // ***
 // * INTERRUPTS
-
 /* ISRs, actually only one working properly now */
 ICACHE_RAM_ATTR void read_bit(void)
 {
