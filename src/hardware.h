@@ -11,7 +11,7 @@
 
 #define BTN_DOWN GPIO_NUM_7
 #define BTN_UP GPIO_NUM_21
-#define BTN_SELECT GPIO_NUM_2
+#define BTN_SELECT GPIO_NUM_20
 
 extern Adafruit_SSD1306 display;
 
