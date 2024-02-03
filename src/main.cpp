@@ -13,7 +13,15 @@ void setup() {
 
   delay(200);
   setting.version = "1.0";*/
-  loadSettings();
+  
+
+  /* 
+  * LOAD CONF TEMPORARY DISABLED 
+  * 
+  * MAY BE RECONSTRUCTED SOON
+  * 
+  */
+  //loadSettings();
   
   //printFile("/settings.json"); FOR SERIAL
   // Display First Page
