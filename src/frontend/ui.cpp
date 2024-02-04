@@ -1,6 +1,6 @@
-#include <Arduino.h>
+#include "ui.h"
 #include "ui_render.h"
-#include "hardware.h"
+#include "init.h"
 #include "types.h"
 
 #define RSSI_PAGE 0

@@ -1,4 +1,4 @@
-#include "types.h"
+#include "init.h"
 
 extern int listSelectedIdx;
 extern int listFirstVisibleIdx;

@@ -1,6 +1,5 @@
-#include<Arduino.h>
-#include "hardware.h"
-#include<vector>
+#include "init.h"
+#include <vector>
 
 struct Sword
 {

@@ -1,8 +1,5 @@
-#include <Arduino.h>
-#include "hardware.h"
-#include "fs/fs.h"
-#include "frontend/ui.h"
-#include "settings/settings.h"
+#include "init.h"
+
 
 void setup() {
   Serial.begin(115200);
@@ -16,28 +13,28 @@ void setup() {
   
 
   /* 
-  * LOAD CONF TEMPORARY DISABLED 
-  * 
-  * MAY BE RECONSTRUCTED SOON
-  * 
-  */
+   * LOAD CONF TEMPORARY DISABLED 
+   * 
+   * MAY BE RECONSTRUCTED SOON
+   * 
+   */
   //loadSettings();
   
   //printFile("/settings.json"); FOR SERIAL
   // Display First Page
   display.clearDisplay();
  // display_error(setting.version); // dEBUG ONLY
-  display_mode_menu(); 
+  //display_mode_menu(); 
 
   delay(200);
 }
 
 void loop() {
   // UI STATE REFRESH
-  if (needRefresh)
-  {
-    refresh_page();
-  }
+  //if (needRefresh)
+  //{
+  //  refresh_page();
+  //}
 
   delay(200);
 }

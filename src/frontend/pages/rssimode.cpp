@@ -1,6 +1,4 @@
-#include<Arduino.h>
-#include "hardware.h"
-#include "settings/settings.h"
+#include "rssimode.h"
 
 #define NUM_COLUMN      64
 #define BATTERY_HEIGHT  10

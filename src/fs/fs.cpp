@@ -1,3 +1,10 @@
+/* ============================================================= 
+ *                 DISABLED (MAINTENANCE NEEDED)
+ * =============================================================
+ */
+
+
+/*
 #include "SPIFFS.h"
 #include "ArduinoJson.h"
 #include "types.h"
@@ -14,7 +21,7 @@ void saveConfiguration(const char *filename, const Config &config)
   // Delete existing file, otherwise the configuration is appended to the file
   SPIFFS.remove(filename);
 
-  // Open file for writing
+  // Open file for writing 
   File file = SPIFFS.open(filename, FILE_WRITE);
   if (!file)
   {
@@ -98,3 +105,4 @@ void printFile(const char *filename)
     saveConfiguration(filepath, config);
     printFile(filepath);
 }*/
+

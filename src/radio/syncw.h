@@ -1,4 +1,3 @@
-#include<Arduino.h>
-#include "hardware.h"
+#include "init.h"
 
 void drawSync(int detected_word);

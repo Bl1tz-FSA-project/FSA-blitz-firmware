@@ -1,16 +1,14 @@
 /* Code with more advanced library
    Cumtributor: SamcraftSam
 */
-
-#include "RadioLib-ESP.h"
-
+#include "scanner.h"
 
 // ======================= INTO GLOBAL
 bool newline = true; // debug
 uint8_t b;           // debug
 int count = 0;       // debug too
 
-const u_int fRange = (FREQ_MAX - FREQ) * 5;
+//const u_int fRange = (FREQ_MAX - FREQ) * 5;
 
 u_int matches[fRange];
 float rssi_spectre[fRange];
@@ -81,6 +79,7 @@ void radio_init()
   check(state, 16);
 }
 
+/*
 // setup routine
 void setup()
 {
@@ -94,6 +93,7 @@ void setup()
   // set up radio
   radio_init();
 }
+*/
 
 /*  MAIN ANALYZER
     Scanning all frequencies, remember unusual packets and compare them.
@@ -236,6 +236,7 @@ void analyzer_scan()
 
   if (received_flag)
   {
+
     for (int i = 0; i < fRange; i++)
     {
       matches[i] = compare(i, packets, old_packets, old_size);
@@ -324,9 +325,6 @@ void analyzer_debug()
   if (radio.available() >= BUFFER_LEN)
   {
 
-    // radio.standby();
-    // sys_delay_ms(10);
-    // Serial.println("Outputing buffer: ");
     while (radio.available())
     {
       rssi = radio.getRSSI(false, true);
@@ -338,15 +336,10 @@ void analyzer_debug()
         if (b != 0x00 && b != 0xff)
           ;
         Serial.print(b, HEX);
-        // Serial.print(" ");
-        // Serial.write(b);
-        // Serial.print("\t");
-        // Serial.print(rssi);
       }
     }
     if (!newline)
     {
-      // Serial.println(rssi);
       Serial.println();
       Serial.print(count);
       Serial.print(": ");
@@ -358,15 +351,12 @@ void analyzer_debug()
         count = 0;
       }
     } // test options
-    // radio.disableBitSync();
-    // sys_delay_ms(1);
-    // radio.enableBitSync();
-    // radio.receiveDirect();
+
   }
 }
 
-/* Loop where we can execute all needed functions*/
 
+/*  Entropy scanning function   */
 void entropy_test()
 {
   char t_packets[BUFFER_MAX];
@@ -420,6 +410,9 @@ void entropy_test()
   }
 }
 
+
+/* Loop where we can execute all needed functions*/
+/*  TEST CODE!
 void loop()
 {
   // analyzer_debug();
@@ -432,4 +425,4 @@ void loop()
   ESP_LOGD("RSSI", "    Current: %f", radio.getRSSI(false, false));
 
   // sys_delay_ms(1000);
-}
+}*/
