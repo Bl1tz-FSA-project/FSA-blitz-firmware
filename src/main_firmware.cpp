@@ -1,8 +1,13 @@
+#include <Arduino.h>
 #include "init.h"
-
+#include "frontend/ui.h"
 
 void setup() {
   Serial.begin(115200);
+
+  Serial.println("System startup....");
+  ESP_LOGD("[INIT]", "SYSTEM STARTUP!");
+
   initHardware();
 
 /*  setting.version = "14.88";
@@ -24,7 +29,7 @@ void setup() {
   // Display First Page
   display.clearDisplay();
  // display_error(setting.version); // dEBUG ONLY
-  //display_mode_menu(); 
+  display_mode_menu(); 
 
   delay(200);
 }
