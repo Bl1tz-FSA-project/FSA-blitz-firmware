@@ -1,8 +1,6 @@
-#include <Arduino.h>
-#include "hardware.h"
-#include "frontend/ui_render.h"
+#include "init.h"
 #include "frontend/ui.h"
-#include "settings/settings.h"
+#include "frontend/ui_render.h"
 
 void handleSelect()
 {

@@ -1,5 +1,4 @@
-#include<Arduino.h>
-#include "hardware.h"
+#include "init.h"
 
 #define NUM_COLUMN      64
 #define BATTERY_HEIGHT  10

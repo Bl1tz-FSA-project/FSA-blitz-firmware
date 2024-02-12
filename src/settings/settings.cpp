@@ -1,4 +1,4 @@
-#include "types.h"
+#include "settings.h"
 //#include "settings.h"
 
 Config setting = {"1.0", 868.0, 928.0, false};

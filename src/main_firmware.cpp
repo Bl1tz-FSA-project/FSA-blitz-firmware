@@ -1,11 +1,13 @@
 #include <Arduino.h>
-#include "hardware.h"
-#include "fs/fs.h"
+#include "init.h"
 #include "frontend/ui.h"
-#include "settings/settings.h"
 
 void setup() {
   Serial.begin(115200);
+
+  Serial.println("System startup....");
+  ESP_LOGD("[INIT]", "SYSTEM STARTUP!");
+
   initHardware();
 
 /*  setting.version = "14.88";
@@ -13,7 +15,15 @@ void setup() {
 
   delay(200);
   setting.version = "1.0";*/
-  loadSettings();
+  
+
+  /* 
+   * LOAD CONF TEMPORARY DISABLED 
+   * 
+   * MAY BE RECONSTRUCTED SOON
+   * 
+   */
+  //loadSettings();
   
   //printFile("/settings.json"); FOR SERIAL
   // Display First Page
@@ -26,10 +36,10 @@ void setup() {
 
 void loop() {
   // UI STATE REFRESH
-  if (needRefresh)
-  {
-    refresh_page();
-  }
+  //if (needRefresh)
+  //{
+  //  refresh_page();
+  //}
 
   delay(200);
 }
