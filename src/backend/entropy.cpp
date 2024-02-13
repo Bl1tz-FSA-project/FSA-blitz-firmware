@@ -31,7 +31,7 @@ double entropy(int *hist, int histlen, int len)
 	return H;
 }
 
-int process_entropy(const char buffer[BUFFER_MAX])
+int process_entropy(const char buffer[BUFFER_MAX], bool isdebug)
 {
 
 	int len, *hist, histlen;
@@ -39,7 +39,7 @@ int process_entropy(const char buffer[BUFFER_MAX])
 	// double avg_entropy;
 
 	int count = 0;
-	len = BUFFER_LEN; // 20
+	len = BUFFER_LEN; 
 	char t_buffer[BUFFER_LEN];
 	memset(t_buffer, 0, BUFFER_LEN);
 
@@ -64,9 +64,8 @@ int process_entropy(const char buffer[BUFFER_MAX])
 			if (H > ENTROPY_TRESH)
 				count++;
 
-			printf(" Entropy: %lf  ", H);
+			if (isdebug) printf(" Entropy: %lf  ", H); printf("\n");
 
-			printf("\n");
 			free(hist);
 		}
 	}

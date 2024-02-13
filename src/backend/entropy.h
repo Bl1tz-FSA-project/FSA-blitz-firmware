@@ -26,4 +26,4 @@ int makehist(unsigned char *S,int *hist,int len);
 
 double entropy(int *hist,int histlen,int len);
 
-int process_entropy(const char packets[BUFFER_MAX]);
+int process_entropy(const char packets[BUFFER_MAX], bool isdebug);

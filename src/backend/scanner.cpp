@@ -1,28 +1,13 @@
+#include "scanner.h"
+
 /* Code with more advanced library
    Cumtributor: SamcraftSam
 */
-#include "scanner.h"
-
-// ======================= INTO GLOBAL
-bool newline = true; // debug
-uint8_t b;           // debug
-int count = 0;       // debug too
-
-//const u_int fRange = (FREQ_MAX - FREQ) * 5;
-
-u_int matches[fRange];
-float rssi_spectre[fRange];
-int detections[fRange];
-
-float rssi;
 
 static volatile bool isbusy = false;
 
-// ======================= INTO HARDWARE.H
-
 SX1276 radio = new Module(CS, PINT, RESET, CLK);
 
-// ======================= // END OF HARDWARE.H
 
 // ***
 // * INTERRUPTS
@@ -65,45 +50,17 @@ void radio_init()
   check(state, 11);
   state = radio.setEncoding(RADIOLIB_ENCODING_NRZ);
   check(state, 12);
-  // state = radio.setRSSIThreshold(-90.0); may be source of my troubles
-  // check(state, 13);
-  // state = radio.setDIOPreambleDetect(false); //14, 15 and set DIO0 not working(ignoring input). Low priority TODO
-  // check(state, 14);
-  // state = radio.setDIOMapping(0, 1);
-  // check(state, 15);
 
-  // radio.setDio0Action(func_read, RISING);
   radio.setDirectAction(read_bit);
   sys_delay_ms(1000);
   state = radio.receiveDirect();
   check(state, 16);
 }
 
-/*
-// setup routine
-void setup()
-{
-  // we dont need this anymore
-  Serial.begin(115200);
-  delay(1000);
-  Serial.println("Serial started!");
-  ESP_LOGV("START", "Starting program...");
-  Serial.flush();
-
-  // set up radio
-  radio_init();
-}
-*/
-
-/*  MAIN ANALYZER
-    Scanning all frequencies, remember unusual packets and compare them.
-    TODO: fix bugs in algorithm
-*/
-
 // log data in terminal. Debug only.
-void log_output(u_int *matches, float *rssi)
+void log_output(int *matches, float *rssi)
 {
-  for (int i = 0; i < fRange; i++)
+  for (u_int i = 0; i < fRange; i++)
   {
     ESP_LOGV("OUTPUT", "FREQ: %f NUM OF BYTES %d RSSI: %f", i * 0.2 + 915.0, matches[i], rssi[i]);
   }
@@ -264,108 +221,18 @@ void clear_out()
     matches[i] = 0;
 }
 
-// legacy function, cmp only with prev packet received
-void analyzer_scan_legacy(void)
-{
-  static uint8_t old_packet[BUFFER_MAX];
-  static uint8_t packet[BUFFER_MAX];
-
-  u_int old_size = BUFFER_MAX;
-  u_int size;
-
-  ESP_LOGW("SCAN", "Starting scanner...");
-  float koef;
-
-  // start cycle of scanning all frequencies
-  for (u_int f = 0; f < fRange; f++)
-  {
-    koef += STEP;
-    u_int comparator = 0;
-
-    hop_channel(koef);
-
-    isbusy = true; // stop reading signals flag
-
-    if (radio.available() < old_size)
-    {
-      old_size = radio.available();
-    }
-
-    if (old_size >= BUFFER_LEN)
-    {
-      // ESP_LOGD("READING", "Some data retrieved! last rssi = %f", rssi);
-
-      size = old_size;
-      while (size)
-      {
-        packet[size] = radio.read();
-        size--;
-      }
-      // ESP_LOGD("READING", "Reading ended! Comparing...");
-
-      packet_compare(packet, old_packet, comparator, old_size);
-      for (int i = 0; i < old_size; i++)
-        old_packet[i] = packet[i]; // TODO: CHANGE IT This can owerwrite important packets
-    }
-
-    if (comparator > 1)
-      rssi_spectre[f] = rssi, matches[f] = comparator;
-    else
-      matches[f] = 0; // may be possible cause of bugs!!!
-    // ESP_LOGD("END", "Cycle ended");
-
-    isbusy = false; // continue listening
-  }
-}
-
-/*  Debug function for displaying raw data in serial  */
-void analyzer_debug()
-{
-
-  if (radio.available() >= BUFFER_LEN)
-  {
-
-    while (radio.available())
-    {
-      rssi = radio.getRSSI(false, true);
-
-      if (rssi < RSSI_TRESHOLD)
-      {
-        newline = false;
-        b = radio.read();
-        if (b != 0x00 && b != 0xff)
-          ;
-        Serial.print(b, HEX);
-      }
-    }
-    if (!newline)
-    {
-      Serial.println();
-      Serial.print(count);
-      Serial.print(": ");
-      Serial.flush();
-      newline = true;
-      count++;
-      if (count > 100)
-      {
-        count = 0;
-      }
-    } // test options
-
-  }
-}
-
-
 /*  Entropy scanning function   */
-void entropy_test()
+void entropy_analyze(bool debug)
 {
   char t_packets[BUFFER_MAX];
   memset(t_packets, 0, BUFFER_MAX); // fix
 
   u_int old_size = BUFFER_MAX;
   u_int size;
-
-  float koef = -0.2; // WHAAAAT SUPER FIX????
+// ***
+// * INTERRUPTS
+/* ISRs, actually only one working properly now */
+  float koef = -0.2; 
 
   bool received_flag = false;
 
@@ -403,26 +270,9 @@ void entropy_test()
     // ESP_LOGE("LIVE", "RSSI: %f FREQ %f", rssi, FREQ + koef);
     if (received_flag)
     {
-      detections[f] = process_entropy(t_packets);
-      ESP_LOGD("ENTROPY", "NUM: %d", detections[f]);
+      detections[f] = process_entropy(t_packets, debug);
+      if(debug) ESP_LOGD("ENTROPY", "NUM: %d", detections[f]);
       received_flag != received_flag;
     }
   }
 }
-
-
-/* Loop where we can execute all needed functions*/
-/*  TEST CODE!
-void loop()
-{
-  // analyzer_debug();
-
-  // analyzer_scan();
-  // clear_out(); //debug
-  entropy_test();
-
-  ESP_LOGD("STATUS", "\n_______DATA RECEIVING ENDED______\n");
-  ESP_LOGD("RSSI", "    Current: %f", radio.getRSSI(false, false));
-
-  // sys_delay_ms(1000);
-}*/
