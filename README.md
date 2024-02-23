@@ -8,13 +8,10 @@ Firmware source for ESP32 based drone detector.
 
 Варто зазначити, що наразі проєкт в розробці на стадії прототипу, тож нові алгоритми та оновлення інтерфейсу в процесі.
 
-
-############################################################
-                  DEV. ZONE
-############################################################
- - Whole frontend must be written from scratch
- - Handle buttons
- - Test RF detection algorithm on the FPV drone etc.
- - Firmware must be patch-friendly
- - Add extensive guide on README.md
- - Firmware protection
+    DEV. ZONE:
+     - Whole frontend must be written from scratch
+     - Handle buttons
+     - Test RF detection algorithm on the FPV drone etc.
+     - Firmware must be patch-friendly
+     - Add extensive guide on README.md
+     - Firmware protection
