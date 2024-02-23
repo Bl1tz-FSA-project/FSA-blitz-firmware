@@ -10,9 +10,7 @@ Firmware source for ESP32 based drone detector.
 
 
 ############################################################
-
                   DEV. ZONE
-                  
 ############################################################
  - Whole frontend must be written from scratch
  - Handle buttons
