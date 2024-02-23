@@ -2,6 +2,8 @@
 #include "init/init.h"
 #include "backend/scanner.h"
 
+//#define DATA_SPIFFS 1 to read from filesystem
+
 //setup routine runs once
 void setup() {
   Serial.begin(115200); 
@@ -21,7 +23,10 @@ void testRadio_entropy()
   delay(1000);
 }
 
-
+void scanRadio_entropy()
+{
+  entropy_analyze(RADIO_RELEASE);
+}
 
 // the loop routine runs over and over again forever:
 void loop() {

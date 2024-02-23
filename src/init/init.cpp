@@ -27,7 +27,22 @@ void initHardware()
 	pinMode(BTN_UP, INPUT_PULLUP);
 	pinMode(BTN_SELECT, INPUT_PULLUP);
 
-	//attachInterrupt(digitalPinToInterrupt(BTN_DOWN), handleDownBtn, FALLING);
-	//attachInterrupt(digitalPinToInterrupt(BTN_UP), handleUpBtn, FALLING);
-	//attachInterrupt(digitalPinToInterrupt(BTN_SELECT), handleSelectBtn, FALLING);
+	attachInterrupt(digitalPinToInterrupt(BTN_DOWN), handleDownBtn, FALLING);
+	attachInterrupt(digitalPinToInterrupt(BTN_UP), handleUpBtn, FALLING);
+	attachInterrupt(digitalPinToInterrupt(BTN_SELECT), handleSelectBtn, FALLING);
+}
+
+void handleDownBtn()
+{
+	//CODE HERE	
+}
+
+void handleUpBtn()
+{
+	//code HERE
+}
+
+void handleSelectBtn()
+{
+	//code HERE
 }

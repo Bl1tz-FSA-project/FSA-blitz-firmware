@@ -26,21 +26,24 @@
 #define RESET 3
 #define CS 10
 
-//ALL ABOVE MUST BE IN FILE SYSTEM
-//SYSTEM OPTIONS
-#define PREAMBLE_LEN 32
-#define TRIGGER_MATCH 10 //bytes must match to trigger packet event
 
-//RADIO OPTIONS
-#define LISTEN_MS 100
-#define FREQ 915.0
-#define FREQ_MAX 917.0 //new
-#define BITRATE 50.0
-#define DEVIATION 25.0
-#define RXBW 220.0
-#define STEP 0.2//RXBW / 100
-#define PWR 5.0
-#define RSSI_TRESHOLD -80.0
+#ifndef DATA_SPIFFS
+    //ALL ABOVE MUST BE IN FILE SYSTEM
+    //SYSTEM OPTIONS
+    #define PREAMBLE_LEN 32
+    #define TRIGGER_MATCH 10 //bytes must match to trigger packet event
+
+    //RADIO OPTIONS
+    #define LISTEN_MS 100
+    #define FREQ 915.0
+    #define FREQ_MAX 917.0 //new
+    #define BITRATE 50.0
+    #define DEVIATION 25.0
+    #define RXBW 220.0
+    #define STEP 0.2//RXBW / 100
+    #define PWR 5.0
+    #define RSSI_TRESHOLD -80.0
+#endif
 
 //Additional macros
 #define RADIO_DEBUG 1
@@ -49,3 +52,7 @@
 extern Adafruit_SSD1306 display;
 
 void initHardware();
+
+void handleUpBtn();
+void handleDownBtn();
+void handleSelectBtn();
