@@ -64,7 +64,7 @@ int process_entropy(const char buffer[BUFFER_MAX], bool isdebug)
 			if (H > ENTROPY_TRESH)
 				count++;
 
-			if (isdebug) printf(" Entropy: %lf  ", H); printf("\n");
+			if (isdebug) printf(" Entropy: %lf  ", H), printf("\n");
 
 			free(hist);
 		}

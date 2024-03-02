@@ -20,24 +20,26 @@ ICACHE_RAM_ATTR void read_bit(void)
 
 // END OF INTERRUPTS
 
-
 // debug function to check parameters
 void check(int state, int op)
 {
+  Serial.println("Radio Setup check!"); // remove later
   if (state != RADIOLIB_ERR_NONE)
   {
-    ESP_LOGE("ERROR", "number: %d, code %d", op, state);
+    ESP_LOGE("ERROR", "number: %d, code %d\n", op, state);
     while (true)
       ;
   }
   else
   {
-    ESP_LOGV("SETUP", "NO error on number: %d", op);
+    ESP_LOGV("SETUP", "NO error on number: %d\n", op);
   }
+  delay(10);
 }
 
 void radio_init()
-{ // BR
+{ 
+  delay(10); 
   int state = radio.beginFSK(FREQ, BITRATE, DEVIATION, RXBW, PWR, PREAMBLE_LEN, false);
   check(state, 1);
   state = radio.setCurrentLimit(100);
@@ -50,11 +52,12 @@ void radio_init()
   check(state, 11);
   state = radio.setEncoding(RADIOLIB_ENCODING_NRZ);
   check(state, 12);
-
   radio.setDirectAction(read_bit);
-  sys_delay_ms(1000);
+  //sys_delay_ms(1000);
   state = radio.receiveDirect();
   check(state, 16);
+
+  ESP_LOGE("DEBUG", "Datarate %d", radio.getDataRate()); for(;;);
 }
 
 // log data in terminal. Debug only.

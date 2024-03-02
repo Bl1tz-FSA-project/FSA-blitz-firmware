@@ -1,10 +1,9 @@
 #include <Arduino.h>
 #include <SPI.h>
 #include <Wire.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
 #include <SPIFFS.h>
-
+#include <string.h>
+#include "frontend/displayCommand.h"
 //#include "handlers.h"
 
 #define SSD1306_128_64  // initialize serial communication at 9600 bits per second:

@@ -1,14 +1,20 @@
 #include <Arduino.h> //optionally
 #include "init/init.h"
 #include "backend/scanner.h"
+#include "frontend/displayCommand.h"
 
 //#define DATA_SPIFFS 1 to read from filesystem
 
 //setup routine runs once
 void setup() {
-  Serial.begin(115200); 
+  Serial.begin(115200);
+  Serial.flush();
+  delay(100); 
   initHardware();
   radio_init();
+
+  displayStats();
+
 }
 
 void testRadio_entropy()
