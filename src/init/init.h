@@ -1,9 +1,10 @@
 #include <Arduino.h>
 #include <SPI.h>
 #include <Wire.h>
+#include <Adafruit_SSD1306.h>
+#include <Adafruit_GFX.h>
 #include <SPIFFS.h>
 #include <string.h>
-#include "frontend/displayCommand.h"
 //#include "handlers.h"
 
 #define SSD1306_128_64  // initialize serial communication at 9600 bits per second:
@@ -12,6 +13,15 @@
 #define SCREEN_HEIGHT 64
 #define OLED_RESET -1
 #define SCREEN_ADDRESS 0x3C
+
+//display module params
+#define BOTTOM_Y 55
+#define BOTTOM_Y_CAPS 50
+#define HEADER_Y 0
+#define NEWLINE_X 0
+#define SMALL_TEXT 1
+#define CAPS_TEXT 2
+
 
 // ? CHANGE DEFINES IN .h FILE !
 #define BTN_DOWN GPIO_NUM_7	   // 7 // 20, 21

@@ -1,7 +1,7 @@
 #include "scanner.h"
 
 /* Code with more advanced library
-   Cumtributor: SamcraftSam
+   Contributor: SamcraftSam
 */
 
 static volatile bool isbusy = false;
@@ -57,7 +57,7 @@ void radio_init()
   state = radio.receiveDirect();
   check(state, 16);
 
-  ESP_LOGE("DEBUG", "Datarate %d", radio.getDataRate()); for(;;);
+  ESP_LOGE("DEBUG", "Datarate %d", radio.getDataRate());
 }
 
 // log data in terminal. Debug only.

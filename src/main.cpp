@@ -1,7 +1,6 @@
-#include <Arduino.h> //optionally
 #include "init/init.h"
 #include "backend/scanner.h"
-#include "frontend/displayCommand.h"
+#include "frontend/displayCtrl.h"
 
 //#define DATA_SPIFFS 1 to read from filesystem
 
@@ -9,11 +8,12 @@
 void setup() {
   Serial.begin(115200);
   Serial.flush();
-  delay(100); 
-  initHardware();
+  delay(2000); 
+  Serial.println("Starting HW init!");
   radio_init();
-
+  initHardware();
   displayStats();
+  Serial.println("DISPLAY DEBUG MSG");
 
 }
 
