@@ -1,5 +1,6 @@
 #include "displayCtrl.h"
-
+#include "init/globals.h"
+#include "buttons/handlers.h"
 /* This starts the display and prints smth....*/
 void displayStats()
 {
@@ -15,18 +16,14 @@ void displayStats()
     delay(1);
 
     //debug output!
-    // highly recommende to use special macros from init.h
-    typewrite("TFS started", NEWLINE_X, HEADER_Y, CAPS_TEXT, false, false);
+    // highly recommended to use special macros from init.h
+    typewrite("TFS BOOT", NEWLINE_X, HEADER_Y, BIG_TEXT, false, false);
     typeln("radio started", SMALL_TEXT, false, false);
     typeln("HW started", SMALL_TEXT, false, true);
 
-    delay(5000);
-
-    typewrite("Created by Hacccker", NEWLINE_X, BOTTOM_Y, SMALL_TEXT, true, true);
-    
     delay(2000);
 
-    typewrite("HEIL IoT", NEWLINE_X, BOTTOM_Y_CAPS, CAPS_TEXT, true, true);
+    typewrite("Created by Hacccker", NEWLINE_X, BOTTOM_Y, SMALL_TEXT, true, true);
 }
 
 
@@ -72,4 +69,28 @@ void typeln(char text[], int16_t fontsize, bool clear, bool update)
     display.println(F(text));
 
     if (update) display.display(); 
+}
+
+/* This function is used only to display log detections data on the display! */
+void log_output_oled(int *detections, float *rssi_spectrum)
+{
+    typewrite("ENT-S LOG:", 0, 0, BIG_TEXT, true, true);
+    int16_t logStartPosition = display.getCursorY();
+    for (u_int i = 0; i < fRange; i++)
+    {
+        //ESP_LOGV("OUTPUT", "FREQ: %f NUM OF BYTES %d RSSI: %f", i * 0.2 + 915.0, matches[i], rssi[i]);
+        //if (detections[i] > 0)
+        if (true) //debug purposes 
+        {
+            char string[] = "%3.1fMHz D:%d R:%3.2f";
+            char out[32];
+            snprintf(out, 32, string, i*0.2+FREQ, detections[i], rssi_spectrum[i]);
+            typeln(out, SMALL_TEXT, false, true);
+            if (display.getCursorY() > BOTTOM_Y)
+            {
+                delay(1000);
+                typewrite("ENT-S LOG:", 0, 0, BIG_TEXT, true, true);
+            }
+        }
+    }
 }

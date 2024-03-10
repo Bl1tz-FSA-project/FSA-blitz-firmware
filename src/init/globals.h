@@ -1,3 +1,8 @@
+/* 
+   This file stores global variables
+   include only in cpp files
+*/
+
 #include "init.h"
 
 //fix c++17 and c++99 uncompatibility

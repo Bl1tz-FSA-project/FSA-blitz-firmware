@@ -1,3 +1,7 @@
+#ifndef INCLUDE_H
+#define INCLUDE_H
+
+
 #include <Arduino.h>
 #include <SPI.h>
 #include <Wire.h>
@@ -5,7 +9,6 @@
 #include <Adafruit_GFX.h>
 #include <SPIFFS.h>
 #include <string.h>
-//#include "handlers.h"
 
 #define SSD1306_128_64  // initialize serial communication at 9600 bits per second:
 
@@ -20,7 +23,7 @@
 #define HEADER_Y 0
 #define NEWLINE_X 0
 #define SMALL_TEXT 1
-#define CAPS_TEXT 2
+#define BIG_TEXT 2
 
 
 // ? CHANGE DEFINES IN .h FILE !
@@ -37,21 +40,22 @@
 
 
 #ifndef DATA_SPIFFS
-    //ALL ABOVE MUST BE IN FILE SYSTEM
-    //SYSTEM OPTIONS
-    #define PREAMBLE_LEN 32
-    #define TRIGGER_MATCH 10 //bytes must match to trigger packet event
+//ALL ABOVE MUST BE IN FILE SYSTEM
+//SYSTEM OPTIONS
+#define PREAMBLE_LEN 32
+#define TRIGGER_MATCH 10 //bytes must match to trigger packet event
 
-    //RADIO OPTIONS
-    #define LISTEN_MS 100
-    #define FREQ 915.0
-    #define FREQ_MAX 917.0 //new
-    #define BITRATE 50.0
-    #define DEVIATION 25.0
-    #define RXBW 220.0
-    #define STEP 0.2//RXBW / 100
-    #define PWR 5.0
-    #define RSSI_TRESHOLD -80.0
+//RADIO OPTIONS
+#define LISTEN_MS 100
+#define FREQ 915.0
+#define FREQ_MAX 917.0 //new
+#define BITRATE 50.0
+#define DEVIATION 25.0
+#define RXBW 220.0
+#define STEP 0.2//RXBW / 100
+#define PWR 5.0
+#define RSSI_TRESHOLD -80.0
+
 #endif
 
 //Additional macros
@@ -59,9 +63,6 @@
 #define RADIO_RELEASE 0
 
 extern Adafruit_SSD1306 display;
+#endif
 
 void initHardware();
-
-void handleUpBtn();
-void handleDownBtn();
-void handleSelectBtn();

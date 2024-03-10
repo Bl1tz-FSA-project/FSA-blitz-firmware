@@ -1,4 +1,4 @@
-#include "init/init.h"
+#include "buttons/handlers.h"
 #include "backend/scanner.h"
 #include "frontend/displayCtrl.h"
 
@@ -14,7 +14,8 @@ void setup() {
   initHardware();
   displayStats();
   Serial.println("DISPLAY DEBUG MSG");
-
+  delay(1000);
+  typeln("", SMALL_TEXT, true, true); //clears the display
 }
 
 void testRadio_entropy()
@@ -24,6 +25,7 @@ void testRadio_entropy()
 
   ESP_LOGD("STATUS", "\n_______DATA RECEIVING ENDED______\n");
   log_output(detections, rssi_spectre);
+  log_output_oled(detections, rssi_spectre);
   ESP_LOGD("RSSI", "    Current: %f", rssi);
 
   delay(1000);

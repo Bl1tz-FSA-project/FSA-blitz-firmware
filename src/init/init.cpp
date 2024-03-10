@@ -1,6 +1,5 @@
 #include "init.h"
 
-
 // DISPLAY =========
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 // END OF DISPLAY =======
@@ -26,23 +25,5 @@ void initHardware()
 	pinMode(BTN_DOWN, INPUT_PULLUP);
 	pinMode(BTN_UP, INPUT_PULLUP);
 	pinMode(BTN_SELECT, INPUT_PULLUP);
-
-	attachInterrupt(digitalPinToInterrupt(BTN_DOWN), handleDownBtn, FALLING);
-	attachInterrupt(digitalPinToInterrupt(BTN_UP), handleUpBtn, FALLING);
-	attachInterrupt(digitalPinToInterrupt(BTN_SELECT), handleSelectBtn, FALLING);
 }
 
-void handleDownBtn()
-{
-	//CODE HERE	
-}
-
-void handleUpBtn()
-{
-	//code HERE
-}
-
-void handleSelectBtn()
-{
-	//code HERE
-}
