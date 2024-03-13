@@ -1,4 +1,4 @@
-# Frequency Spectrum Analyzer 'Blitz'
+# Frequency Spectrum Analyzer 'Blitz'/Частотний аналізатор спектру "ЧАС"
 Firmware source for ESP32 based drone detector.
 Lead Developer: @SamcraftSam
 
