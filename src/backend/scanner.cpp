@@ -109,7 +109,7 @@ void hop_channel(float koef)
     {
       break;
     }
-    t_rssi = radio.getRSSI(false, false);
+    t_rssi = radio.getRSSI(false, true); //second arg set to true
 
     if (t_rssi > rssi)
       rssi = t_rssi;

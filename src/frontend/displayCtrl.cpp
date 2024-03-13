@@ -72,19 +72,19 @@ void typeln(char text[], int16_t fontsize, bool clear, bool update)
 }
 
 /* This function is used only to display log detections data on the display! */
-void log_output_oled(int *detections, float *rssi_spectrum)
+void log_output_oled(int *d, float *rssi_spectrum)
 {
     typewrite("ENT-S LOG:", 0, 0, BIG_TEXT, true, true);
     int16_t logStartPosition = display.getCursorY();
     for (u_int i = 0; i < fRange; i++)
     {
         //ESP_LOGV("OUTPUT", "FREQ: %f NUM OF BYTES %d RSSI: %f", i * 0.2 + 915.0, matches[i], rssi[i]);
-        //if (detections[i] > 0)
-        if (true) //debug purposes 
+        if (d[i] >= 0)
+        //if (true) //debug purposes 
         {
-            char string[] = "%3.1fMHz D:%d R:%3.2f";
+            char string[] = "%3.1fMHz D:%2d R:%3.1f";
             char out[32];
-            snprintf(out, 32, string, i*0.2+FREQ, detections[i], rssi_spectrum[i]);
+            snprintf(out, 32, string, i*0.2+FREQ, d[i], rssi_spectrum[i]);
             typeln(out, SMALL_TEXT, false, true);
             if (display.getCursorY() > BOTTOM_Y)
             {

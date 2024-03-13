@@ -1,8 +1,11 @@
 #include "buttons/handlers.h"
 #include "backend/scanner.h"
 #include "frontend/displayCtrl.h"
+#include "init/globals.h"
 
 //#define DATA_SPIFFS 1 to read from filesystem
+
+//TODO: Buttons interaction, menu panel etc.
 
 //setup routine runs once
 void setup() {
@@ -21,10 +24,10 @@ void setup() {
 void testRadio_entropy()
 {
 
-  entropy_analyze(RADIO_RELEASE);
+  entropy_analyze(RADIO_DEBUG);
 
   ESP_LOGD("STATUS", "\n_______DATA RECEIVING ENDED______\n");
-  log_output(detections, rssi_spectre);
+  //log_output(detections, rssi_spectre);
   log_output_oled(detections, rssi_spectre);
   ESP_LOGD("RSSI", "    Current: %f", rssi);
 

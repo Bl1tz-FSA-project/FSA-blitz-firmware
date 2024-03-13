@@ -36,7 +36,7 @@ int process_entropy(const char buffer[BUFFER_MAX], bool isdebug)
 
 	int len, *hist, histlen;
 	double H;
-	// double avg_entropy;
+	avg_entropy = 0;
 
 	int count = 0;
 	len = BUFFER_LEN; 
@@ -63,12 +63,14 @@ int process_entropy(const char buffer[BUFFER_MAX], bool isdebug)
 			H = entropy(hist, histlen, len);
 			if (H > ENTROPY_TRESH)
 				count++;
-
-			if (isdebug) printf(" Entropy: %lf  ", H), printf("\n");
-
+				avg_entropy += H;
+			
+			//if (isdebug) printf(" Entropy: %lf  ", H), printf("\n");
 			free(hist);
 		}
 	}
+	avg_entropy /= fRange;
+	if (isdebug) printf(" AVG: %lf  CNT: %d", avg_entropy, count), printf("\n");
 
 	return count;
 }

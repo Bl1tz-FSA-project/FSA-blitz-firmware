@@ -6,8 +6,9 @@
 #include <cmath>
 
 #include "esp_log.h"
+#include "init/globals.h"
 
-#define ENTROPY_TRESH 1.5 //sensitivity of entropy filter
+#define ENTROPY_TRESH 1.0 //sensitivity of entropy filter
 
 #ifndef BUFFER_MAX
 #define BUFFER_MAX 256
