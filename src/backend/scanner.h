@@ -36,6 +36,6 @@ void analyzer_scan();
 
 void clear_out();
 
-void entropy_analyze(bool debug);
+void entropy_analyze();
 
 #endif

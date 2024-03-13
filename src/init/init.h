@@ -18,8 +18,6 @@
 
 #include "esp_log.h"
 
-#include "init/globals.h"
-
 #define SSD1306_128_64  // initialize serial communication at 9600 bits per second:
 
 #define SCREEN_WIDTH 128
@@ -57,20 +55,24 @@
 
 //RADIO OPTIONS
 #define LISTEN_MS 100
-#define FREQ 915.0
-#define FREQ_MAX 917.0 //new
+#define FREQ 900.0
+#define FREQ_MAX 930.0 
 #define BITRATE 50.0
 #define DEVIATION 25.0
 #define RXBW 220.0
 #define STEP 0.2//RXBW / 100
 #define PWR 5.0
-#define RSSI_TRESHOLD -80.0
+#define RSSI_TRESHOLD -70.0
+
+#define fRange (u_int)((FREQ_MAX - FREQ) * 5)
 
 #endif
 
 //Additional macros
-#define RADIO_DEBUG 1
-#define RADIO_RELEASE 0
+//debug mode:
+//#define RADIO_DEBUG 1
+//release mode:
+#define RADIO_DEBUG 0
 
 extern Adafruit_SSD1306 display;
 #endif

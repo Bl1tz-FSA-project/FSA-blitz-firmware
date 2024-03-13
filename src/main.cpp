@@ -24,20 +24,20 @@ void setup() {
 
 void testRadio_entropy()
 {
-
-  entropy_analyze(RADIO_DEBUG);
+  typewrite("LogMode(I)", 0, 0, BIG_TEXT, false, true);
+  entropy_analyze();
 
   ESP_LOGD("STATUS", "\n_______DATA RECEIVING ENDED______\n");
   //log_output(detections, rssi_spectre);
   log_output_oled(entropyDetections, rssi_spectre);
   ESP_LOGD("RSSI", "    Current: %f", rssi);
 
-  delay(1000);
+  delay(10);
 }
 
 void scanRadio_entropy()
 {
-  entropy_analyze(RADIO_RELEASE);
+  entropy_analyze();
 }
 
 // the loop routine runs over and over again forever:

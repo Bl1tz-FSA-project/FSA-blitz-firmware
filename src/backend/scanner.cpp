@@ -232,7 +232,7 @@ void clear_out()
 }
 
 /*  Entropy scanning function   */
-void entropy_analyze(bool debug)
+void entropy_analyze()
 {
   char t_packets[BUFFER_MAX];
   memset(t_packets, 0, BUFFER_MAX); // fix
@@ -280,8 +280,8 @@ void entropy_analyze(bool debug)
     // ESP_LOGE("LIVE", "RSSI: %f FREQ %f", rssi, FREQ + koef);
     if (received_flag)
     {
-      entropyDetections[f] = process_entropy(t_packets, debug);
-      if(debug) ESP_LOGD("ENTROPY", "NUM: %d", entropyDetections[f]);
+      entropyDetections[f] = process_entropy(t_packets, RADIO_DEBUG, f); //f only to log
+      if(RADIO_DEBUG) ESP_LOGD("ENTROPY", "NUM: %d", entropyDetections[f]);
       received_flag != received_flag;
     }
   }

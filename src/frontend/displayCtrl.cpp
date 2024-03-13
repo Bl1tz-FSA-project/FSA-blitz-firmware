@@ -73,23 +73,27 @@ void typeln(char text[], int16_t fontsize, bool clear, bool update)
 /* This function is used only to display log detections data on the display! */
 void log_output_oled(int *d, float *rssi_spectrum)
 {
-    typewrite("ENT-S LOG:", 0, 0, BIG_TEXT, true, true);
+    bool isClear = false;
+    typewrite("LogMode(I)", 0, 0, BIG_TEXT, false, true);
     int16_t logStartPosition = display.getCursorY();
     for (u_int i = 0; i < fRange; i++)
     {
         //ESP_LOGV("OUTPUT", "FREQ: %f NUM OF BYTES %d RSSI: %f", i * 0.2 + 915.0, matches[i], rssi[i]);
-        if (d[i] >= 0)
+        if (d[i] > 0)
         //if (true) //debug purposes 
         {
+            if (!isClear) typewrite("LogMode( )", 0, 0, BIG_TEXT, true, true), isClear = true;
             char string[] = "%3.1fMHz D:%2d R:%3.1f";
             char out[32];
             snprintf(out, 32, string, i*0.2+FREQ, d[i], rssi_spectrum[i]);
-            typeln(out, SMALL_TEXT, false, true);
+            typeln(out, SMALL_TEXT, false, false);
             if (display.getCursorY() > BOTTOM_Y)
             {
                 delay(1000);
-                typewrite("ENT-S LOG:", 0, 0, BIG_TEXT, true, true);
+                typewrite("LogMode( )", 0, 0, BIG_TEXT, true, true);
             }
         }
     }
+    //typewrite("MODE-L (I)", 0, 0, BIG_TEXT, false, true); //--indicate that scanner just saves last info
+    display.display();
 }

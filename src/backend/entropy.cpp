@@ -33,7 +33,7 @@ double entropy(int *hist, int histlen, int len)
 	return H;
 }
 
-int process_entropy(const char buffer[BUFFER_MAX], bool isdebug)
+int process_entropy(const char buffer[BUFFER_MAX], bool isdebug, int f)
 {
 
 	int len, *hist, histlen;
@@ -64,10 +64,13 @@ int process_entropy(const char buffer[BUFFER_MAX], bool isdebug)
 			// hist now has no order (known to the program) but that doesn't matter
 			H = entropy(hist, histlen, len);
 			if (H > ENTROPY_TRESH)
+			{
 				count++;
-				avg_entropy += H;
+				printf(" Entropy: %lf  FREQ: %f", H, f*0.2+FREQ), printf("\n");
+			}
+			avg_entropy += H;
 			
-			//if (isdebug) printf(" Entropy: %lf  ", H), printf("\n");
+				
 			free(hist);
 		}
 	}
