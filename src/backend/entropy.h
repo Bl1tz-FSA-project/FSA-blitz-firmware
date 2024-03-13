@@ -1,12 +1,6 @@
-#include <vector>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
-#include <cmath>
+#include "init/init.h"
 
-#include "esp_log.h"
-#include "init/globals.h"
+extern double avg_entropy; //debug
 
 #define ENTROPY_TRESH 1.0 //sensitivity of entropy filter
 

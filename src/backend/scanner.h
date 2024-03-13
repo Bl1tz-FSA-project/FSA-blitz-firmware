@@ -4,7 +4,19 @@
 #include "init/init.h"
 #include "entropy.h"
 
-#include "init/globals.h"
+
+#ifndef SCANNER_H
+#define SCANNER_H
+
+// =================== IMPORTANT RADIO DATA ===================
+//extern const u_int fRange = (FREQ_MAX - FREQ) * 5;
+extern float rssi;
+extern uint8_t b;
+
+
+extern int matches[fRange];
+extern float rssi_spectre[fRange];
+extern int entropyDetections[fRange];
 
 ICACHE_RAM_ATTR void read_bit(void);
 
@@ -26,3 +38,4 @@ void clear_out();
 
 void entropy_analyze(bool debug);
 
+#endif

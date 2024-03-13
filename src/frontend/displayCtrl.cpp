@@ -1,5 +1,4 @@
 #include "displayCtrl.h"
-#include "init/globals.h"
 #include "buttons/handlers.h"
 /* This starts the display and prints smth....*/
 void displayStats()

@@ -11,13 +11,14 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 // =================== IMPORTANT RADIO DATA ===================
-inline const u_int fRange = (FREQ_MAX - FREQ) * 5;
-inline float rssi;
-inline uint8_t b;
-inline double avg_entropy;
+#define fRange (u_int)((FREQ_MAX - FREQ) * 5)
+//inline const u_int fRange = (FREQ_MAX - FREQ) * 5;
+//inline float rssi;
+//inline uint8_t b;
+//inline double avg_entropy; //debug
 
-inline int matches[fRange];
-inline float rssi_spectre[fRange];
-inline int detections[fRange];
+//inline int matches[fRange];
+//inline float rssi_spectre[fRange];
+//static int detections[fRange];
 
 #endif

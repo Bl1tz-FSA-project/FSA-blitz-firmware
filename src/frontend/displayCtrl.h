@@ -1,4 +1,4 @@
-
+#include "backend/scanner.h"
 #include "init/init.h"
 
 void displayStats(void);

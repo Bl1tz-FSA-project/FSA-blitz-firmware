@@ -1,5 +1,7 @@
 #include "entropy.h"
 
+double avg_entropy; //debug
+
 int makehist(unsigned char *S, int *hist, int len)
 {
 	int wherechar[256];

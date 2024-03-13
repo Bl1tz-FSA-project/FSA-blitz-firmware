@@ -3,12 +3,22 @@
 
 
 #include <Arduino.h>
+#include <RadioLib.h>
 #include <SPI.h>
 #include <Wire.h>
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_GFX.h>
 #include <SPIFFS.h>
 #include <string.h>
+#include <vector>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <cmath>
+
+#include "esp_log.h"
+
+#include "init/globals.h"
 
 #define SSD1306_128_64  // initialize serial communication at 9600 bits per second:
 
