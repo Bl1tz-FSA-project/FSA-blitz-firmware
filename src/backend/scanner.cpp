@@ -9,7 +9,6 @@ static volatile bool isbusy = false;
 
 SX1276 radio = new Module(CS, PINT, RESET, CLK);
 
-//const u_int fRange = (FREQ_MAX - FREQ) * 5;
 float rssi;
 uint8_t b;
 
@@ -18,7 +17,7 @@ float rssi_spectre[fRange];
 int entropyDetections[fRange];
 // ***
 // * INTERRUPTS
-/* ISRs, actually only one working properly now */
+
 ICACHE_RAM_ATTR void read_bit(void)
 {
   if (!isbusy)
@@ -231,7 +230,11 @@ void clear_out()
     matches[i] = 0;
 }
 
-/*  Entropy scanning function   */
+/*  Entropy scanning function 
+  
+    DOCUMENTATION  NEEDED
+
+*/
 void entropy_analyze()
 {
   char t_packets[BUFFER_MAX];
@@ -239,9 +242,7 @@ void entropy_analyze()
 
   u_int old_size = BUFFER_MAX;
   u_int size;
-// ***
-// * INTERRUPTS
-/* ISRs, actually only one working properly now */
+
   float koef = -0.2; 
 
   bool received_flag = false;
@@ -275,9 +276,8 @@ void entropy_analyze()
     ets_delay_us(5);
     radio.enableBitSync();
     radio.receiveDirect();
-    // isbusy = false;
 
-    // ESP_LOGE("LIVE", "RSSI: %f FREQ %f", rssi, FREQ + koef);
+    
     if (received_flag)
     {
       entropyDetections[f] = process_entropy(t_packets, RADIO_DEBUG, f); //f only to log

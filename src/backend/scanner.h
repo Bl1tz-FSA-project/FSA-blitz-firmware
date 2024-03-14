@@ -9,11 +9,8 @@
 #define SCANNER_H
 
 // =================== IMPORTANT RADIO DATA ===================
-//extern const u_int fRange = (FREQ_MAX - FREQ) * 5;
 extern float rssi;
 extern uint8_t b;
-
-
 extern int matches[fRange];
 extern float rssi_spectre[fRange];
 extern int entropyDetections[fRange];

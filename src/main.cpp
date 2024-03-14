@@ -4,7 +4,8 @@
 
 //#define DATA_SPIFFS 1 to read from filesystem
 
-//TODO: Buttons interaction, menu panel etc.
+//TODO: Buttons interaction, menu panel etc,
+//      Radio Debug
 
 //variables debug zone
 
@@ -13,11 +14,13 @@ void setup() {
   Serial.begin(115200);
   Serial.flush();
   delay(2000); 
+  
   Serial.println("Starting HW init!");
   radio_init();
   initHardware();
   displayStats();
-  Serial.println("DISPLAY DEBUG MSG");
+  attachISR();
+
   delay(1000);
   typeln("", SMALL_TEXT, true, true); //clears the display
 }
@@ -27,10 +30,9 @@ void testRadio_entropy()
   typewrite("LogMode(I)", 0, 0, BIG_TEXT, false, true);
   entropy_analyze();
 
-  ESP_LOGD("STATUS", "\n_______DATA RECEIVING ENDED______\n");
-  //log_output(detections, rssi_spectre);
+  if (RADIO_DEBUG) ESP_LOGD("STATUS", "\n_______DATA RECEIVING ENDED______\n");
   log_output_oled(entropyDetections, rssi_spectre);
-  ESP_LOGD("RSSI", "    Current: %f", rssi);
+  if (RADIO_DEBUG) ESP_LOGD("RSSI", "    Current: %f", rssi);
 
   delay(10);
 }

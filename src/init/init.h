@@ -1,7 +1,6 @@
 #ifndef INCLUDE_H
 #define INCLUDE_H
 
-
 #include <Arduino.h>
 #include <RadioLib.h>
 #include <SPI.h>
@@ -15,7 +14,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <cmath>
-
 #include "esp_log.h"
 
 #define SSD1306_128_64  // initialize serial communication at 9600 bits per second:
@@ -60,15 +58,16 @@
 #define BITRATE 50.0
 #define DEVIATION 25.0
 #define RXBW 220.0
-#define STEP 0.2//RXBW / 100
+#define STEP RXBW / 100 // test with this
 #define PWR 5.0
-#define RSSI_TRESHOLD -70.0
+#define RSSI_TRESHOLD -80.0
 
 #define fRange (u_int)((FREQ_MAX - FREQ) * 5)
 
 #endif
 
-//Additional macros
+/* ===== Additional macros ===== */
+
 //debug mode:
 //#define RADIO_DEBUG 1
 //release mode:

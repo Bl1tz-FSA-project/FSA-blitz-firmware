@@ -40,7 +40,7 @@ int process_entropy(const char buffer[BUFFER_MAX], bool isdebug, int f)
 	double H;
 	avg_entropy = 0;
 
-	int count = 0;
+	int trigger = 0;
 	len = BUFFER_LEN; 
 	char t_buffer[BUFFER_LEN];
 	memset(t_buffer, 0, BUFFER_LEN);
@@ -65,8 +65,8 @@ int process_entropy(const char buffer[BUFFER_MAX], bool isdebug, int f)
 			H = entropy(hist, histlen, len);
 			if (H > ENTROPY_TRESH)
 			{
-				count++;
-				printf(" Entropy: %lf  FREQ: %f", H, f*0.2+FREQ), printf("\n");
+				trigger++;
+				if (isdebug) printf(" Entropy: %lf  FREQ: %f", H, f*0.2+FREQ), printf("\n");
 			}
 			avg_entropy += H;
 			
@@ -75,7 +75,7 @@ int process_entropy(const char buffer[BUFFER_MAX], bool isdebug, int f)
 		}
 	}
 	avg_entropy /= fRange;
-	if (isdebug) printf(" AVG: %lf  CNT: %d", avg_entropy, count), printf("\n");
+	if (isdebug) printf(" AVG: %lf  CNT: %d", avg_entropy, trigger), printf("\n");
 
-	return count;
+	return trigger;
 }
