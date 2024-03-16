@@ -55,4 +55,7 @@ PS: Для кращого ознайомлення читайте код і ма
 # Поки працює - не чіпай. Є ідея як покращити? Роби окрему гілку!
 
     - все ще є баги у радіо, протестити з зміненим STEP макросом!
-    - треба порт на FPV RX.
+    - SEVERE BUG CONNECTED TO CYCLE AND LIST INDEX fRange. Issue with frequency split.
+    - Display interpretation issue, only highest/lowest 5 MHZ displayed
+    - Entropy value too high and unstable when using LoRa modulation.
+    - треба порт на FPV RX. Також глянь ELRS source code щоб побачити необхідні параметри

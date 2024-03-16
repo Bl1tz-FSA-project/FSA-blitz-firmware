@@ -51,29 +51,60 @@
 #define PREAMBLE_LEN 32
 #define TRIGGER_MATCH 10 //bytes must match to trigger packet event
 
-//RADIO OPTIONS
+/* =========RADIO OPTIONS==========
+ *  For LoRa mode: configure according to documentation, 
+ *  chip have some restrictions
+ *
+ */
 #define LISTEN_MS 100
-#define FREQ 900.0
+#define LISTEN_INTERVAL 10
+#define FREQ 915.0
 #define FREQ_MAX 930.0 
 #define BITRATE 50.0
 #define DEVIATION 25.0
-#define RXBW 220.0
-#define STEP RXBW / 100 // test with this
+#define RXBW 125.0
+#define STEP RXBW / 100.0 // test with this
 #define PWR 5.0
 #define RSSI_TRESHOLD -80.0
 
-#define fRange (u_int)((FREQ_MAX - FREQ) * 5)
+#define fRange (u_int)((FREQ_MAX - FREQ)*5)
 
 #endif
+
+// =================== RADIO DATA ===================
+extern float rssi;
+extern uint8_t b;
+extern float rssi_spectre[fRange];
+extern int detections[fRange];
+
+// =================== OP Modes & Menu ==============
+//set to 1 to use LoRa modulation instead of FSK
+#define IS_LORA 0
+
 
 /* ===== Additional macros ===== */
 
-//debug mode:
-//#define RADIO_DEBUG 1
+//debug logging enable:
+#define RADIO_DEBUG 1
 //release mode:
-#define RADIO_DEBUG 0
+//#define RADIO_DEBUG 0
 
 extern Adafruit_SSD1306 display;
+extern SX1276 radio;
+
+
 #endif
+
+ICACHE_RAM_ATTR void read_bit(void);
+
+void check(int state, int op);
+
+void radio_init(); 
+
+int radio_fsk();
+
+int radio_lora();
+
+void log_output(int *matches, float *rssi);
 
 void initHardware();

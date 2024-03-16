@@ -75,7 +75,7 @@ int process_entropy(const char buffer[BUFFER_MAX], bool isdebug, int f)
 		}
 	}
 	avg_entropy /= fRange;
-	if (isdebug) printf(" AVG: %lf  CNT: %d", avg_entropy, trigger), printf("\n");
+	//if (isdebug) printf(" AVG: %lf  CNT: %d", avg_entropy, trigger), printf("\n");
 
 	return trigger;
 }

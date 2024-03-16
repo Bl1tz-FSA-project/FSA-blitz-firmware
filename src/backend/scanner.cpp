@@ -1,79 +1,9 @@
 #include "scanner.h"
 
-/* Code with more advanced library
+/* Code with basic scanning algorhitms
    Contributor: SamcraftSam
 */
 
-
-static volatile bool isbusy = false;
-
-SX1276 radio = new Module(CS, PINT, RESET, CLK);
-
-float rssi;
-uint8_t b;
-
-int matches[fRange];
-float rssi_spectre[fRange];
-int entropyDetections[fRange];
-// ***
-// * INTERRUPTS
-
-ICACHE_RAM_ATTR void read_bit(void)
-{
-  if (!isbusy)
-    radio.readBit(DATA);
-}
-
-// END OF INTERRUPTS
-
-// debug function to check parameters
-void check(int state, int op)
-{
-  Serial.println("Radio Setup check!"); // remove later
-  if (state != RADIOLIB_ERR_NONE)
-  {
-    ESP_LOGE("ERROR", "number: %d, code %d\n", op, state);
-    while (true)
-      ;
-  }
-  else
-  {
-    ESP_LOGV("SETUP", "NO error on number: %d\n", op);
-  }
-  delay(10);
-}
-
-void radio_init()
-{ 
-  delay(10); 
-  int state = radio.beginFSK(FREQ, BITRATE, DEVIATION, RXBW, PWR, PREAMBLE_LEN, false);
-  check(state, 1);
-  state = radio.setCurrentLimit(100);
-  check(state, 6);
-  state = radio.setDataShaping(RADIOLIB_SHAPING_NONE);
-  check(state, 7);
-  state = radio.enableBitSync();
-  check(state, 9);
-  state = radio.setGain(0);
-  check(state, 11);
-  state = radio.setEncoding(RADIOLIB_ENCODING_NRZ);
-  check(state, 12);
-  radio.setDirectAction(read_bit);
-  //sys_delay_ms(1000);
-  state = radio.receiveDirect();
-  check(state, 16);
-
-  ESP_LOGE("DEBUG", "Datarate %d", radio.getDataRate());
-}
-
-// log data in terminal. Debug only.
-void log_output(int *matches, float *rssi)
-{
-  for (u_int i = 0; i < fRange; i++)
-  {
-    ESP_LOGV("OUTPUT", "FREQ: %f NUM OF BYTES %d RSSI: %f", i * 0.2 + 915.0, matches[i], rssi[i]);
-  }
-}
 
 // compare 2 arrays
 void packet_compare(uint8_t packet[], uint8_t old_packet[], u_int &comp, u_int old_size)
@@ -120,7 +50,7 @@ void hop_channel(float koef)
       rssi = t_rssi;
 
     // ESP_LOGD("TIMER-DEBUG", "Time: %d, oldtime: %d, rssi: %f", current_time, last_time+100, rssi);
-    sys_delay_ms(10);
+    sys_delay_ms(LISTEN_INTERVAL);
   }
   last_time = current_time;
 }
@@ -205,12 +135,12 @@ void analyzer_scan()
 
     for (int i = 0; i < fRange; i++)
     {
-      matches[i] = compare(i, packets, old_packets, old_size);
+      detections[i] = compare(i, packets, old_packets, old_size);
       // matches[i] = comparator[i];
       // comparator[i] = 0;
     }
     received_flag = false;
-    log_output(matches, rssi_spectre);
+    log_output(detections, rssi_spectre);
 
     // rewrite old cache!
     for (int i = 0; i < fRange; i++)
@@ -227,7 +157,7 @@ void analyzer_scan()
 void clear_out()
 {
   for (int i = 0; i < fRange; i++)
-    matches[i] = 0;
+    detections[i] = 0;
 }
 
 /*  Entropy scanning function 
@@ -280,8 +210,7 @@ void entropy_analyze()
     
     if (received_flag)
     {
-      entropyDetections[f] = process_entropy(t_packets, RADIO_DEBUG, f); //f only to log
-      if(RADIO_DEBUG) ESP_LOGD("ENTROPY", "NUM: %d", entropyDetections[f]);
+      detections[f] = process_entropy(t_packets, RADIO_DEBUG, f); //f only to log
       received_flag != received_flag;
     }
   }

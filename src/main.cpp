@@ -13,7 +13,7 @@
 void setup() {
   Serial.begin(115200);
   Serial.flush();
-  delay(2000); 
+  delay(1000); 
   
   Serial.println("Starting HW init!");
   radio_init();
@@ -29,9 +29,9 @@ void testRadio_entropy()
 {
   typewrite("LogMode(I)", 0, 0, BIG_TEXT, false, true);
   entropy_analyze();
-
   if (RADIO_DEBUG) ESP_LOGD("STATUS", "\n_______DATA RECEIVING ENDED______\n");
-  log_output_oled(entropyDetections, rssi_spectre);
+  
+  log_output_oled(detections, rssi_spectre);
   if (RADIO_DEBUG) ESP_LOGD("RSSI", "    Current: %f", rssi);
 
   delay(10);
