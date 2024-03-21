@@ -44,7 +44,7 @@ void hop_channel(float koef)
     {
       break;
     }
-    t_rssi = radio.getRSSI(false, true); //second arg set to true
+    t_rssi = radio.getRSSI(true, true); //second arg set to true
 
     if (t_rssi > rssi)
       rssi = t_rssi;
@@ -78,6 +78,7 @@ u_int compare(int c_freq, uint8_t packets[fRange][BUFFER_MAX],
   return comp;
 }
 
+/* OLD ALGORITHM! */
 void analyzer_scan()
 {
   static uint8_t old_packets[fRange][BUFFER_MAX];
@@ -160,9 +161,13 @@ void clear_out()
     detections[i] = 0;
 }
 
-/*  Entropy scanning function 
-  
-    DOCUMENTATION  NEEDED
+/*  
+
+    Entropy scanning function 
+    This function listens every channel in the spectrum and calculates Shannon's Entropy 
+    of the given signal.
+
+    This approach can distinguish packets and radio-trash. 
 
 */
 void entropy_analyze()

@@ -63,10 +63,10 @@ int process_entropy(const char buffer[BUFFER_MAX], bool isdebug, int f)
 
 			// hist now has no order (known to the program) but that doesn't matter
 			H = entropy(hist, histlen, len);
-			if (H > ENTROPY_TRESH)
+			if (H > ENTROPY_TRESH && H < ENTROPY_MAX)
 			{
 				trigger++;
-				if (isdebug) printf(" Entropy: %lf  FREQ: %f", H, f*0.2+FREQ), printf("\n");
+				if (isdebug) printf(" Entropy: %lf  FREQ: %f", H, f*STEP+FREQ), printf("\n");
 			}
 			avg_entropy += H;
 			
@@ -75,7 +75,7 @@ int process_entropy(const char buffer[BUFFER_MAX], bool isdebug, int f)
 		}
 	}
 	avg_entropy /= fRange;
-	//if (isdebug) printf(" AVG: %lf  CNT: %d", avg_entropy, trigger), printf("\n");
+	if (isdebug) printf(" AVG: %lf  CNT: %d", avg_entropy, trigger), printf("\n");
 
 	return trigger;
 }

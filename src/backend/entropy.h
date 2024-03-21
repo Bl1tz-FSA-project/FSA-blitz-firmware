@@ -3,6 +3,7 @@
 extern double avg_entropy; //debug
 
 #define ENTROPY_TRESH 1.0 //sensitivity of entropy filter
+#define ENTROPY_MAX 5.0 // add this in script! 
 
 #ifndef BUFFER_MAX
 #define BUFFER_MAX 256

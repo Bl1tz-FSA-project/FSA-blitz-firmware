@@ -58,28 +58,33 @@
  */
 #define LISTEN_MS 100
 #define LISTEN_INTERVAL 10
-#define FREQ 915.0
-#define FREQ_MAX 930.0 
+#define FREQ 902.0
+#define FREQ_MAX 928.0 
 #define BITRATE 50.0
 #define DEVIATION 25.0
-#define RXBW 125.0
-#define STEP RXBW / 100.0 // test with this
+#define RXBW 500.0 //in kHz
+#define STEP (RXBW / 1000.0) // convert to MHz
 #define PWR 5.0
 #define RSSI_TRESHOLD -80.0
 
-#define fRange (u_int)((FREQ_MAX - FREQ)*5)
+/* 
+    Calculates size of data arrays. Value of fRange global.
+*/
+#define RANGE (u_int)((FREQ_MAX - FREQ)/STEP) 
 
 #endif
 
 // =================== RADIO DATA ===================
+const u_int fRange = RANGE;
+
 extern float rssi;
 extern uint8_t b;
-extern float rssi_spectre[fRange];
-extern int detections[fRange];
+extern float rssi_spectre[RANGE];
+extern int detections[RANGE];
 
 // =================== OP Modes & Menu ==============
 //set to 1 to use LoRa modulation instead of FSK
-#define IS_LORA 0
+#define IS_LORA 1
 
 
 /* ===== Additional macros ===== */

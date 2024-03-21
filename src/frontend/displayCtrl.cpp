@@ -85,7 +85,7 @@ void log_output_oled(int *d, float *rssi_spectrum)
             if (!isClear) typewrite("LogMode( )", 0, 0, BIG_TEXT, true, true), isClear = true;
             char string[] = "%3.1fMHz D:%2d R:%3.1f";
             char out[32];
-            snprintf(out, 32, string, i*0.2+FREQ, d[i], rssi_spectrum[i]);
+            snprintf(out, 32, string, i*STEP+FREQ, d[i], rssi_spectrum[i]);
             typeln(out, SMALL_TEXT, false, false);
             if (display.getCursorY() > BOTTOM_Y)
             {

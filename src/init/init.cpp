@@ -87,8 +87,6 @@ int radio_fsk()
   state = radio.receiveDirect();
   check(state, 16);
 
-  ESP_LOGE("DEBUG", "Datarate %d", radio.getDataRate());
-
   return 0;
 }
 
