@@ -1,4 +1,11 @@
-#include "init.h"
+/*
+	=========================================
+	Hardware init module
+	Created and maintained by @SamcraftSam
+	=========================================
+*/
+
+#include "hardware.h"
 
 // DISPLAY =========
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);

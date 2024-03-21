@@ -1,7 +1,11 @@
-#include "buttons/handlers.h"
-#include "backend/scanner.h"
-#include "frontend/displayCtrl.h"
+/*
+*  Firmware for UAV detection device
+*  Created by @SamcraftSam
+*  Licence: MIT
+*/
 
+
+#include "hw/setup_libs.h"
 
 //setup routine runs once
 void setup() {
@@ -15,31 +19,25 @@ void setup() {
   displayStats();
   attachISR();
 
-  delay(1000);
+  delay(100);
   typeln("", SMALL_TEXT, true, true); //clears the display
-
+  display_mode_menu();
   //ESP_LOGE("DEBUG", "REMOVE LATER! fRange value: %d", fRange);
 }
 
-void testRadio_entropy()
-{
-  typewrite("LogMode(I)", 0, 0, BIG_TEXT, false, true);
-  entropy_analyze();
-  if (RADIO_DEBUG) ESP_LOGD("STATUS", "_______DATA RECEIVING ENDED______\n");
-  
-  log_output_oled(detections, rssi_spectre);
-  if (RADIO_DEBUG) ESP_LOGD("RSSI", "    Current: %f", rssi);
-
-  delay(10);
-}
-
-void scanRadio_entropy()
-{
-  entropy_analyze();
-}
-
+/*
 // the loop routine runs over and over again forever:
 void loop() {
   testRadio_entropy();
   delay(1);        // delay in between reads for stability
+}*/
+
+void loop() {
+  // UI STATE REFRESH
+  if (needRefresh)
+  {
+    refresh_page();
+  }
+
+  delay(100);
 }

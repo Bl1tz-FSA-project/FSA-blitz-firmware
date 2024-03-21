@@ -1,5 +1,6 @@
 #include "displayCtrl.h"
 #include "buttons/handlers.h"
+
 /* This starts the display and prints smth....*/
 void displayStats()
 {
@@ -14,15 +15,10 @@ void displayStats()
     display.display();
     delay(1);
 
-    //debug output!
-    // highly recommended to use special macros from init.h
-    typewrite("TFS BOOT", NEWLINE_X, HEADER_Y, BIG_TEXT, false, false);
-    typeln("radio started", SMALL_TEXT, false, false);
-    typeln("HW started", SMALL_TEXT, false, true);
+    typewrite("Created by Hacccker", NEWLINE_X, BOTTOM_Y, SMALL_TEXT, true, true);
 
     delay(2000);
 
-    typewrite("Created by Hacccker", NEWLINE_X, BOTTOM_Y, SMALL_TEXT, true, true);
 }
 
 
@@ -39,7 +35,11 @@ void setparams(int16_t x, int16_t y, bool color, int16_t fontsize)
     x, y for cursor coords! 
     clear = true to delete everything before typing!
     update = true to display content immidiately
-    update = false writes to buffer but not displays
+    update = false wr// Global var
+    int page = 0;
+    bool needRefresh = false;
+    bool scrollMode = false;
+    ites to buffer but not displays
    ######################################################
 
    PLS don't spam with display.display()! It loads I2C wire
@@ -96,4 +96,110 @@ void log_output_oled(int *d, float *rssi_spectrum)
     }
     //typewrite("MODE-L (I)", 0, 0, BIG_TEXT, false, true); //--indicate that scanner just saves last info
     display.display();
+}
+
+
+/* ============================================
+    Created and contributed
+    by N1llShul and Shum.
+
+    Maintained by SamcraftSam
+   ============================================
+*/
+
+// Global var
+volatile int page = 0; //ISR 
+volatile bool needRefresh = false;
+bool scrollMode = false;
+
+
+ListViewOptions mode_choices[] = {
+    {"FSK MODE >", 0},
+    {"LORA MODE >", 1},
+    {"SETTINGS[IN DEV] >", 2},
+    {"UPDATE SYNC DATA", 3},
+};
+
+
+ListViewOptions settings_opts[] = {
+    {"LOUD MODE", 0},
+    {"", 1},
+    {"L MODE 824-870 MHz", 2},
+    {"L MODE 902-950 MHz", 3},
+    {"L MODE 824-950 MHz", 4},
+    {"EXIT", 5},
+};
+
+ListViewOptions sync_choices[] = {
+    {"SYNC DEMO", 0},
+    {"EXIT", 1},
+};
+
+void display_rssi()
+{
+    page = RSSI_PAGE;
+
+    testRadio_entropy();
+}
+
+void display_mode_menu()
+{
+    page = MODE_PAGE;
+    scrollMode = true;
+ 
+    showList(mode_choices, sizeof(mode_choices) / sizeof(mode_choices[0]));
+}
+
+void display_sync_menu()
+{
+    page = SYNCW_PAGE;
+    scrollMode = true;
+    showList(sync_choices, sizeof(sync_choices) / sizeof(sync_choices[0]));
+}
+
+void display_settings()
+{
+    page = SETTINGS_PAGE;
+    scrollMode = true;
+    showList(settings_opts, sizeof(settings_opts) / sizeof(settings_opts[0]));
+}
+
+void display_error(String text)
+{
+    scrollMode = false;
+    page = ERROR_PAGE;
+
+    display.clearDisplay();
+
+    display.setTextSize(1);
+    display.setTextColor(WHITE);
+    display.setCursor(0, 10);
+
+    // Display static text
+    display.println("ERROR:");
+    display.println("");
+    display.println(text);
+    display.display();
+}
+
+void refresh_page()
+{
+    needRefresh = false;
+
+    if (page == RSSI_PAGE)
+    {
+        display_rssi();
+    }
+    else if (page == MODE_PAGE)
+    {
+        display_mode_menu();
+    }
+    else if (page == SYNCW_PAGE)
+    {
+        display_sync_menu();
+    }
+    else if (page == SETTINGS_PAGE)
+    {
+        display_settings();
+    }
 }

@@ -1,7 +1,8 @@
 #include "scanner.h"
-
-/* Code with basic scanning algorhitms
-   Contributor: SamcraftSam
+#include "frontend/displayCtrl.h"
+/* 
+   Code with basic scanning algorhitms
+   Contributor: @SamcraftSam
 */
 
 
@@ -123,8 +124,9 @@ void analyzer_scan()
 
       received_flag = true;
     }
+
     radio.disableBitSync();
-    ets_delay_us(5);
+    delayMicroseconds(5);
     radio.enableBitSync();
     radio.receiveDirect();
     // isbusy = false;
@@ -197,6 +199,11 @@ void entropy_analyze()
       while (radio.available() && increment < BUFFER_MAX)
       {
         b = radio.read();
+        
+        //temporary log
+        //ESP_LOGE("DUMP", "RSSI: %f FREQ %f SIZE %d DATA %x",
+         //          rssi, FREQ + koef, increment, b);
+
 
         if (rssi >= RSSI_TRESHOLD)
         {
@@ -219,4 +226,16 @@ void entropy_analyze()
       received_flag != received_flag;
     }
   }
+}
+
+void testRadio_entropy()
+{
+  typewrite("LogMode(I)", 0, 0, BIG_TEXT, true, true);
+  entropy_analyze();
+  if (RADIO_DEBUG) ESP_LOGD("STATUS", "UPDATE: \n_______DATA RECEIVING ENDED______\n");
+  
+  log_output_oled(detections, rssi_spectre);
+  if (RADIO_DEBUG) ESP_LOGD("RSSI", "    Current: %f", rssi);
+
+  delay(10);
 }

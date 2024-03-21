@@ -1,6 +1,3 @@
-#ifndef INCLUDE_H
-#define INCLUDE_H
-
 #include <Arduino.h>
 #include <RadioLib.h>
 #include <SPI.h>
@@ -15,6 +12,8 @@
 #include <stdbool.h>
 #include <cmath>
 #include "esp_log.h"
+
+//#include "setup_libs.h"
 
 #define SSD1306_128_64  // initialize serial communication at 9600 bits per second:
 
@@ -34,8 +33,8 @@
 
 // ? CHANGE DEFINES IN .h FILE !
 #define BTN_DOWN GPIO_NUM_7	   // 7 // 20, 21
-#define BTN_UP GPIO_NUM_21	   // 20 // 20, 21
-#define BTN_SELECT GPIO_NUM_20 // 21 // 20, 21
+#define BTN_UP GPIO_NUM_20 // 21 // 20, 21
+#define BTN_SELECT GPIO_NUM_21	   // 20 // 20, 21
 
 //static params
 #define DATA 2 
@@ -62,7 +61,7 @@
 #define FREQ_MAX 928.0 
 #define BITRATE 50.0
 #define DEVIATION 25.0
-#define RXBW 500.0 //in kHz
+#define RXBW 200.0 //in kHz
 #define STEP (RXBW / 1000.0) // convert to MHz
 #define PWR 5.0
 #define RSSI_TRESHOLD -80.0
@@ -74,6 +73,12 @@
 
 #endif
 
+
+
+#ifndef INCLUDE_H
+#define INCLUDE_H
+
+
 // =================== RADIO DATA ===================
 const u_int fRange = RANGE;
 
@@ -84,7 +89,7 @@ extern int detections[RANGE];
 
 // =================== OP Modes & Menu ==============
 //set to 1 to use LoRa modulation instead of FSK
-#define IS_LORA 1
+#define IS_LORA 0
 
 
 /* ===== Additional macros ===== */

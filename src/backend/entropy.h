@@ -1,4 +1,4 @@
-#include "init/init.h"
+#include "hw/hardware.h"
 
 extern double avg_entropy; //debug
 
