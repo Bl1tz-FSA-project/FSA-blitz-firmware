@@ -55,8 +55,8 @@
  *  chip have some restrictions
  *
  */
-#define LISTEN_MS 100
-#define LISTEN_INTERVAL 10
+#define LISTEN_MS 20 // time for each channel
+#define LISTEN_INTERVAL 10 //time for each listen
 #define FREQ 902.0
 #define FREQ_MAX 928.0 
 #define BITRATE 50.0

@@ -70,8 +70,30 @@ void typeln(char text[], int16_t fontsize, bool clear, bool update)
     if (update) display.display(); 
 }
 
-/* This function is used only to display log detections data on the display! */
 void log_output_oled(int *d, float *rssi_spectrum)
+{
+    typewrite("Logging:", 0, 0, BIG_TEXT, true, true);
+    int16_t logStartPosition = display.getCursorY();
+    for (u_int i = 0; i < fRange; i++)
+    {
+        if (d[i] > 0)
+        {
+            
+            char string[] = "%3.1fMHz D:%2d R:%3.1f";
+            char out[32];
+            snprintf(out, 32, string, i*STEP+FREQ, d[i], rssi_spectrum[i]);
+            typeln(out, SMALL_TEXT, false, true);
+            if (display.getCursorY() > BOTTOM_Y)
+            {
+                delay(1000);
+                typewrite("Logging:", 0, 0, BIG_TEXT, true, true);
+            }
+        }
+    }
+}
+
+/* This function is used only to display log detections data on the display! */
+void log_output_oled_old(int *d, float *rssi_spectrum)
 {
     bool isClear = false;
     typewrite("LogMode(I)", 0, 0, BIG_TEXT, false, true);
@@ -138,8 +160,11 @@ ListViewOptions sync_choices[] = {
 void display_rssi()
 {
     page = RSSI_PAGE;
-
-    testRadio_entropy();
+    while (page == RSSI_PAGE)
+    {
+        testRadio_entropy();
+    }
+    
 }
 
 void display_mode_menu()

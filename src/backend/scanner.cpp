@@ -230,7 +230,7 @@ void entropy_analyze()
 
 void testRadio_entropy()
 {
-  typewrite("LogMode(I)", 0, 0, BIG_TEXT, true, true);
+  typewrite("Scan...", 0, 0, BIG_TEXT, true, true);
   entropy_analyze();
   if (RADIO_DEBUG) ESP_LOGD("STATUS", "UPDATE: \n_______DATA RECEIVING ENDED______\n");
   
