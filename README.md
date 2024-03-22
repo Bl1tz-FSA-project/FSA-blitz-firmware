@@ -6,16 +6,18 @@ Contributors: @shumdeveloper, @n1llshull
 Full documentation in English will be soon...
 
 Updates TODO list:
-    - make branch for ERLS RX900 chipset
-    - fix bugs in UI
-    - fix small memory-related bugs
-    - add schematics and Wiki
-    - add user guide
-    - develop advanced algorithm for FPV detection
-    - create persistent memory for settings(SPIFS)
+        - make branch for ERLS RX900 chipset
+        - fix bugs in UI
+        - fix small memory-related bugs
+        - add schematics and Wiki
+        - add user guide
+        - develop advanced algorithm for FPV detection
+        - create persistent memory for settings(SPIFS)
 
-ЧАС (Частотний Аналізатор Спектру) - недороге, гнучке й відкрите до модифікацій рішення для виявлення й аналізу пакетів у радіоефірі. Підходить для виявлення дронів й засобів зв'язку. 
-Пристрій працює на базі мікроконтролера ESP32-C3, для прослуховування ефіру використовується радіомодуль NRF95(SX1275). Робочий частотний діапазон налаштовується користувачем, від 150 до 1020 МГц.
+ЧАС (Частотний Аналізатор Спектру) - недороге, гнучке й відкрите до модифікацій рішення для виявлення й аналізу пакетів у радіоефірі. 
+Підходить для виявлення дронів й засобів зв'язку. 
+Пристрій працює на базі мікроконтролера ESP32-C3, для прослуховування ефіру використовується радіомодуль NRF95(SX1275). 
+Робочий частотний діапазон налаштовується користувачем, від 150 до 1020 МГц.
 Базовий, заводський алгоритм передбачає виявлення радіо-пакетів методом обчислення Ейнтропії Шенона. 
 Така методика хоч і не гарантує точність, але зате не вимагає інформації про джерело сигналу і працюватиме навіть з зашифрованим трафіком.
 
