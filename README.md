@@ -1,6 +1,9 @@
 # Frequency Spectrum Analyzer 'Blitz'/Частотний аналізатор спектру "ЧАС"
 Firmware source for ESP32 based drone detector.
 Lead Developer: @SamcraftSam
+Contributors: @shumdeveloper, @n1llshull
+
+Full documentation in English will be soon...
 
 ЧАС (Частотний Аналізатор Спектру) - недороге, гнучке й відкрите до модифікацій рішення для виявлення й аналізу пакетів у радіоефірі. Підходить для виявлення дронів й засобів зв'язку. 
 Пристрій працює на базі мікроконтролера ESP32-C3, для прослуховування ефіру використовується радіомодуль NRF95(SX1275). Робочий частотний діапазон налаштовується користувачем, від 150 до 1020 МГц.
@@ -51,11 +54,3 @@ backend/entropy.h - НЕ ЧІПАТИ! Один з алгоритмів обро
 - Детальна документація та зрозумілість процесу, можливість інжекту алгоритму через пам'ять чи у соурс код при компіляції
 
 PS: Для кращого ознайомлення читайте код і мануали по бібліотекам. 
-
-# Поки працює - не чіпай. Є ідея як покращити? Роби окрему гілку!
-
-    - все ще є баги у радіо, протестити з зміненим STEP макросом!
-    - SEVERE BUG CONNECTED TO CYCLE AND LIST INDEX fRange. Issue with frequency split.
-    - Display interpretation issue, only highest/lowest 5 MHZ displayed
-    - Entropy value too high and unstable when using LoRa modulation.
-    - треба порт на FPV RX. Також глянь ELRS source code щоб побачити необхідні параметри
