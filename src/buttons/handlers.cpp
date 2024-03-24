@@ -21,24 +21,24 @@ void handleSelect()
 {
     // USING BY INTERRUPTS
 
-    if (page == MODE_PAGE)
+    if (page == PAGE_2)
     {
         if (listSelectedIdx == 0)
         {
             // RSI MODE
-            page = RSSI_PAGE;
+            page = PAGE_1;
             needRefresh = true;
         }
         else if (listFirstVisibleIdx == 1)
         {
             // SYNC PAGE
-            page = SYNCW_PAGE;
+            page = PAGE_3;
             needRefresh = true;
         }
         else if (listFirstVisibleIdx == 2)
         {
             // Settings page
-            page = SETTINGS_PAGE;
+            page = PAGE_4;
             needRefresh = true;
         }
         else if (listFirstVisibleIdx == 3)
@@ -46,11 +46,11 @@ void handleSelect()
             // Todo: Update ...
         }
     }
-    else if (page == SYNCW_PAGE)
+    else if (page == PAGE_3)
     {
         // TODO: Sync page select options
     }
-    else if (page == SETTINGS_PAGE)
+    else if (page == PAGE_4)
     {
         // Settings Page
         if (listSelectedIdx == 0)
@@ -77,14 +77,14 @@ void handleSelect()
         else if (listSelectedIdx == 5)
         {
             // return back
-            page = MODE_PAGE;
+            page = PAGE_2;
             needRefresh = true;
         }
     }
-	else if (page == RSSI_PAGE) 
+	else if (page == PAGE_1) 
 	{
 		//exit to the menu
-		page = MODE_PAGE;
+		page = PAGE_2;
 		needRefresh = true;
 	}
     //todo: show which option LMODE is selected currently
@@ -166,7 +166,7 @@ void IRAM_ATTR handleSelectBtn()
     }
     else
     {
-        page = MODE_PAGE;
+        page = PAGE_2;
         needRefresh = true;
     }
 }

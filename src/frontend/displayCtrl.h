@@ -9,20 +9,20 @@
    CURRENTLY MAINTAINED BY @SamcraftSam
 */
 
-#define RSSI_PAGE 0
-#define MODE_PAGE 1
-#define SYNCW_PAGE 2
-#define SETTINGS_PAGE 3
-#define ERROR_PAGE 5
+#define PAGE_1 0
+#define PAGE_2 1
+#define PAGE_3 2
+#define PAGE_4 3
+#define PAGE_6 5
 
 extern volatile int page;
 extern volatile bool needRefresh;
 extern bool scrollMode;
 
 void refresh_page();
-void display_rssi();
+void display_log();
 void display_settings();
-void display_mode_menu();
+void display_spectrum();
 void display_sync_menu();
 void display_error(String text);
 /* =================================== */

@@ -101,8 +101,8 @@ bool scrollMode = false;
 
 
 ListViewOptions mode_choices[] = {
-    {"FSK MODE >", 0},
-    {"LORA MODE >", 1},
+    {"LOG >", 0},
+    {"SPECTRUM >", 1},
     {"SETTINGS[IN DEV] >", 2},
     {"UPDATE SYNC DATA", 3},
 };
@@ -110,11 +110,10 @@ ListViewOptions mode_choices[] = {
 
 ListViewOptions settings_opts[] = {
     {"LOUD MODE", 0},
-    {"", 1},
-    {"L MODE 824-870 MHz", 2},
-    {"L MODE 902-950 MHz", 3},
-    {"L MODE 824-950 MHz", 4},
-    {"EXIT", 5},
+    {"SILENT MODE", 1},
+    {"SET FSK MODE", 2},
+    {"SET LORA MODE", 3},
+    {"EXIT", 4},
 };
 
 ListViewOptions sync_choices[] = {
@@ -122,10 +121,10 @@ ListViewOptions sync_choices[] = {
     {"EXIT", 1},
 };
 
-void display_rssi()
+void display_log()
 {
-    page = RSSI_PAGE;
-    while (page == RSSI_PAGE)
+    page = PAGE_1;
+    while (page == PAGE_1)
     {
         typewrite("Scaning..", 0, 0, BIG_TEXT, true, true);
         testRadio_entropy();
@@ -134,9 +133,9 @@ void display_rssi()
     
 }
 
-void display_mode_menu()
+void display_spectrum()
 {
-    page = MODE_PAGE;
+    page = PAGE_2;
     scrollMode = true;
  
     showList(mode_choices, sizeof(mode_choices) / sizeof(mode_choices[0]));
@@ -144,14 +143,14 @@ void display_mode_menu()
 
 void display_sync_menu()
 {
-    page = SYNCW_PAGE;
+    page = PAGE_3;
     scrollMode = true;
     showList(sync_choices, sizeof(sync_choices) / sizeof(sync_choices[0]));
 }
 
 void display_settings()
 {
-    page = SETTINGS_PAGE;
+    page = PAGE_4;
     scrollMode = true;
     showList(settings_opts, sizeof(settings_opts) / sizeof(settings_opts[0]));
 }
@@ -159,7 +158,7 @@ void display_settings()
 void display_error(String text)
 {
     scrollMode = false;
-    page = ERROR_PAGE;
+    page = PAGE_6;
 
     display.clearDisplay();
 
@@ -178,19 +177,19 @@ void refresh_page()
 {
     needRefresh = false;
 
-    if (page == RSSI_PAGE)
+    if (page == PAGE_1)
     {
-        display_rssi();
+        display_log();
     }
-    else if (page == MODE_PAGE)
+    else if (page == PAGE_2)
     {
-        display_mode_menu();
+        display_spectrum();
     }
-    else if (page == SYNCW_PAGE)
+    else if (page == PAGE_3)
     {
         display_sync_menu();
     }
-    else if (page == SETTINGS_PAGE)
+    else if (page == PAGE_4)
     {
         display_settings();
     }

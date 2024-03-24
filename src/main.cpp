@@ -21,7 +21,7 @@ void setup() {
 
   delay(100);
   typeln("", SMALL_TEXT, true, true); //clears the display
-  display_mode_menu();
+  display_spectrum();
   //ESP_LOGE("DEBUG", "REMOVE LATER! fRange value: %d", fRange);
 }
 
