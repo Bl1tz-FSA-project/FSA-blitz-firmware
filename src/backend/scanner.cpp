@@ -157,6 +157,7 @@ void analyzer_scan()
   }
 }
 
+//replace it with memset()!
 void clear_out()
 {
   for (int i = 0; i < fRange; i++)
@@ -175,7 +176,7 @@ void clear_out()
 void entropy_analyze()
 {
   char t_packets[BUFFER_MAX];
-  memset(t_packets, 0, BUFFER_MAX); // fix
+  //memset(t_packets, 0, BUFFER_MAX);
 
   u_int old_size = BUFFER_MAX;
   u_int size;
@@ -186,6 +187,7 @@ void entropy_analyze()
 
   for (u_int f = 0; f < fRange; f++)
   {
+    memset(t_packets, 0, BUFFER_MAX);
     koef += STEP;
     hop_channel(koef);
     rssi_spectre[f] = rssi;
@@ -230,12 +232,9 @@ void entropy_analyze()
 
 void testRadio_entropy()
 {
-  typewrite("Scan...", 0, 0, BIG_TEXT, true, true);
   entropy_analyze();
   if (RADIO_DEBUG) ESP_LOGD("STATUS", "UPDATE: \n_______DATA RECEIVING ENDED______\n");
   
   log_output_oled(detections, rssi_spectre);
   if (RADIO_DEBUG) ESP_LOGD("RSSI", "    Current: %f", rssi);
-
-  delay(10);
 }

@@ -13,9 +13,7 @@
 #include <cmath>
 #include "esp_log.h"
 
-//#include "setup_libs.h"
-
-#define SSD1306_128_64  // initialize serial communication at 9600 bits per second:
+#define SSD1306_128_64
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
@@ -29,7 +27,7 @@
 #define NEWLINE_X 0
 #define SMALL_TEXT 1
 #define BIG_TEXT 2
-
+#define DISPLAY_LOG_TIMEOUT 2000
 
 // ? CHANGE DEFINES IN .h FILE !
 #define BTN_DOWN GPIO_NUM_7	   // 7 // 20, 21

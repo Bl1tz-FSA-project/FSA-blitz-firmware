@@ -63,7 +63,7 @@ int process_entropy(const char buffer[BUFFER_MAX], bool isdebug, int f)
 
 			// hist now has no order (known to the program) but that doesn't matter
 			H = entropy(hist, histlen, len);
-			if (H > ENTROPY_TRESH && H < ENTROPY_MAX)
+			if (H > ENTROPY_TRESH)
 			{
 				trigger++;
 				if (isdebug) printf(" Entropy: %lf  FREQ: %f", H, f*STEP+FREQ), printf("\n");

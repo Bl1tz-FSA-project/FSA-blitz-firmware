@@ -4,16 +4,10 @@
 /* This starts the display and prints smth....*/
 void displayStats()
 {
-    display.display();
-    delay(2000); // Pause for 2 seconds
+    
     display.clearDisplay();
     display.display();
     delay(2000);
-
-    display.clearDisplay();
-    delay(1);
-    display.display();
-    delay(1);
 
     typewrite("Created by Hacccker", NEWLINE_X, BOTTOM_Y, SMALL_TEXT, true, true);
 
@@ -79,47 +73,18 @@ void log_output_oled(int *d, float *rssi_spectrum)
         if (d[i] > 0)
         {
             
-            char string[] = "%3.1fMHz D:%2d R:%3.1f";
+            char string[] = "%3.1fMHz D:%1d R:%3.1f";
             char out[32];
             snprintf(out, 32, string, i*STEP+FREQ, d[i], rssi_spectrum[i]);
             typeln(out, SMALL_TEXT, false, true);
             if (display.getCursorY() > BOTTOM_Y)
             {
-                delay(1000);
+                delay(DISPLAY_LOG_TIMEOUT);
                 typewrite("Logging:", 0, 0, BIG_TEXT, true, true);
             }
         }
     }
 }
-
-/* This function is used only to display log detections data on the display! */
-void log_output_oled_old(int *d, float *rssi_spectrum)
-{
-    bool isClear = false;
-    typewrite("LogMode(I)", 0, 0, BIG_TEXT, false, true);
-    int16_t logStartPosition = display.getCursorY();
-    for (u_int i = 0; i < fRange; i++)
-    {
-        //ESP_LOGV("OUTPUT", "FREQ: %f NUM OF BYTES %d RSSI: %f", i * 0.2 + 915.0, matches[i], rssi[i]);
-        if (d[i] > 0)
-        //if (true) //debug purposes 
-        {
-            if (!isClear) typewrite("LogMode( )", 0, 0, BIG_TEXT, true, true), isClear = true;
-            char string[] = "%3.1fMHz D:%2d R:%3.1f";
-            char out[32];
-            snprintf(out, 32, string, i*STEP+FREQ, d[i], rssi_spectrum[i]);
-            typeln(out, SMALL_TEXT, false, false);
-            if (display.getCursorY() > BOTTOM_Y)
-            {
-                delay(1000);
-                typewrite("LogMode( )", 0, 0, BIG_TEXT, true, true);
-            }
-        }
-    }
-    //typewrite("MODE-L (I)", 0, 0, BIG_TEXT, false, true); //--indicate that scanner just saves last info
-    display.display();
-}
-
 
 /* ============================================
     Created and contributed
@@ -162,7 +127,9 @@ void display_rssi()
     page = RSSI_PAGE;
     while (page == RSSI_PAGE)
     {
+        typewrite("Scaning..", 0, 0, BIG_TEXT, true, true);
         testRadio_entropy();
+        delay(DISPLAY_LOG_TIMEOUT);
     }
     
 }
